@@ -94,12 +94,24 @@ const clickShortLink =async  (req, res, next) => {
     }
 }
 const deleteUrl = async(req ,res, next) => { 
-    const {shortUrl} = req.body 
-
-    try{ 
-
-    }catch(e)  {
         
+    try{ 
+        const {shortUrl} = req.body 
+        const url= await urlModel.findOne({shortUrl}) 
+        url.status= "INACTIVE"
+        url.userId=null 
+        url.clicks = 0
+        url.longUrl=  null 
+
+        await url.save()
+        return res.status(200).json({ 
+            success: true ,
+            message : "Url Deleted Successfully",
+            shortUrl : url , 
+            
+        })
+    }catch(e)  {
+            return next(new Apperror(e.message ,400 )  )
     }
 
 } 
