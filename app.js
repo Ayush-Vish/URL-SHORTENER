@@ -23,7 +23,7 @@ app.use("/api/v1/user" , userRoutes )
 
 // Url Route 
 
-app.use("/api/v1/url" ,urlRoute)
+app.use("/" ,urlRoute)
 
 
 

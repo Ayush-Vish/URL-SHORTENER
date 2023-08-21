@@ -18,6 +18,10 @@ const urlSchema = new mongoose.Schema({
     status : {
         type : String,
         default : "INACTIVE"
+    },
+    clicks:  {
+        type : Number ,
+        default: 0
     }
 },{
     timestamps: true 
