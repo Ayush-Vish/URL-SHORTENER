@@ -1,7 +1,14 @@
 import expresss from "express";
-const router = expresss.Router() 
+const  router = expresss.Router() 
 import isLoggedIn from "../middlewares/authentication.middleware.js"
 import url from "../controllers/url.controller.js"
+
+
+router.route("/").post ((req ,res) => {
+    res.send("Error 404");
+    
+})
+
 router.route("/url/make-url").post(url.makeShortUrlInDB)
 router.route("/url/link-shortUrl").post(isLoggedIn,url.linkShortUrL)
 router.route("/:hash").get(url.clickShortLink)

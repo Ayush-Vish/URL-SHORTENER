@@ -34,11 +34,7 @@ app.use("/" ,urlRoute)
 
 
 app.use("*" , (req ,res)=>{
-    res.status(404).send("OOPS PAGE NOT FOUND ! ") 
-    res.json({
-        success :false 
-    }) 
-
+    res.status(404).send("OOPS PAGE NOT FOUND ! ")  
 })
 
 app.use(errorMiddleware)
