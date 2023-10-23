@@ -49,7 +49,7 @@ const linkShortUrL = async (req, res, next) => {
         if(!authorId) {
             return next(new Apperror("User is not Logged In " ,400)) 
         }
-        url.linkShortUrl = `http://localhost:${process.env.PORT}/${url.shortUrl}`
+        url.linkShortUrl = `https://linkshorts.vercel.app/${url.shortUrl}`
         url.userId = authorId 
         url.longUrl = longUrl 
         url.status= "ACTIVE"
@@ -57,7 +57,7 @@ const linkShortUrL = async (req, res, next) => {
         return res.status(200).json({ 
             success:  true, 
             message : "Url Linked SuccessFully",
-            shortUrl: `http://localhost:${process.env.PORT}/${url.shortUrl}`,
+            shortUrl: `https://linkshorts.vercel.app/${url.shortUrl}`,
             longUrl:longUrl
         })
         
