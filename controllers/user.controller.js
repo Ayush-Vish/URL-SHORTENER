@@ -5,12 +5,13 @@ import JWT from "jsonwebtoken";
 
 const register = async (req , res , next) => {
     try {
+        const {name, email , password}  = req.body 
+        console.log(req.body) 
+        console.log(req.headers)
         console.log("Yaha Par")
-        const {name, email , password}  = req.body
-        console.log("Yaha Par")
-        if(!name || !email || !password  ) {
+        if(!name || !  email || ! password  ) {
             return next(new Apperror ("All fields are required", 400));
-        }
+        }   
         const UserExists  = await User.find({email})
         if(UserExists.length!==0) {
             return next(new Apperror ("User Already Exists Please Change Email" ,400))

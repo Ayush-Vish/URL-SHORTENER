@@ -29,7 +29,7 @@ const makeShortUrlInDB = async (req , res , next) => {
 
     }
     return res.status(200).json({ 
-        succesS :true , 
+        success :true , 
         data : await urlModel.find({})
     })
 }
@@ -49,15 +49,16 @@ const linkShortUrL = async (req, res, next) => {
         if(!authorId) {
             return next(new Apperror("User is not Logged In " ,400)) 
         }
+        url.linkShortUrl = `http://localhost:${process.env.PORT}/${url.shortUrl}`
         url.userId = authorId 
         url.longUrl = longUrl 
         url.status= "ACTIVE"
         await url.save()
-
         return res.status(200).json({ 
             success:  true, 
             message : "Url Linked SuccessFully",
-            shortUrl: `${process.env.HOSTNAME}:${process.env.PORT}/${url.shortUrl}`
+            shortUrl: `http://localhost:${process.env.PORT}/${url.shortUrl}`,
+            longUrl:longUrl
         })
         
 
@@ -73,7 +74,7 @@ const clickShortLink =async  (req, res, next) => {
         if(!longUrl) { 
             return next(new Apperror("LongUrl Corresponding to Short Url Does Not Exists " ,500 )) 
         }
-        longUrl.clicks ++ ;
+        longUrl.clicks  ++ ;
         
         await longUrl.save()
         res.redirect(longUrl.longUrl)
@@ -90,7 +91,6 @@ const clickShortLink =async  (req, res, next) => {
 
     } catch (e) {
         return next(new Apperror (e.message , 400 ) ) 
-
     }
 }
 const deleteUrl = async(req ,res, next) => { 
@@ -119,7 +119,10 @@ const getAllUrls  = async (req, res, next)=> {
      try {  
         console.log("fknjsdvbkljvgvfsdbjk")
         const userId = req.user.id 
-        const urls =await urlModel.find({userId: userId})
+        const urls =await urlModel.find({userId: userId}).sort({createdAt:-1}) ;
+        console.log(urls);
+        
+
         if(!urls.length)  {
             return next(new Apperror("User Does No tHave Any Urls", 400))
         }   
@@ -137,7 +140,4 @@ export default {
     clickShortLink,
     deleteUrl,
     getAllUrls
-
-
-     
 }

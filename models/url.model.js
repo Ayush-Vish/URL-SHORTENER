@@ -8,7 +8,11 @@ const urlSchema = new mongoose.Schema({
     },
     shortUrl : {
         type : String
+    }, 
+    linkShortUrl: {
+        type : String
     },
+
     longUrl  : { 
         type: String 
     },
@@ -22,6 +26,10 @@ const urlSchema = new mongoose.Schema({
     clicks:  {
         type : Number ,
         default: 0
+    }, 
+    qrCode : {
+        public_id: String,
+        secureUrl : String
     }
 },{
     timestamps: true 
