@@ -59,9 +59,13 @@ const login = async  (req, res, next) => {
         user.password  =undefined 
         const cookieOptions = {
             maxAge:7*24*60*60*1000,
-            secure:true
+            httpOnly:true,
+            secure:true, 
+            SameSite=None
         }
-        res.cookie("token", token ,cookieOptions)
+        res.cookie("token", token ,cookieOptions) 
+        console.log(res);
+
         return res.status(200).json({ 
             success:true, 
             message : "User logined Successfully", 
