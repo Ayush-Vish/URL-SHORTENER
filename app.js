@@ -17,10 +17,13 @@ connectToDb()
 app.use(morgan("dev"))
 
 app.use(cors({
-    origin :"https://linkshort-git-main-ayush-vishwakarmas-projects.vercel.app/", 
+    origin :"http://localhost:5173/", 
     credentials : true
 }))
-
+ 
+app.use("/ping" , (req, res) => {
+    res.send("/pong")
+})
 // User Route 
 
 app.use("/api/v1/user" , userRoutes ) 
