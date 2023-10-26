@@ -17,7 +17,7 @@ connectToDb()
 app.use(morgan("dev"))
 
 app.use(cors({
-    origin :"https://linkshort-bay.vercel.app/", 
+    origin :"https://linkshort-git-main-ayush-vishwakarmas-projects.vercel.app/", 
     credentials : true
 }))
 
