@@ -16,9 +16,7 @@ app.use(express.json())
 connectToDb()
 app.use(morgan("dev"))
 
-app.use(cors({
-    credentials : true
-}))
+app.use(cors())
  
 app.use("/ping" , (req, res) => {
     res.send("/pong")
