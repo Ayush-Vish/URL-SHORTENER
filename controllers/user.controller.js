@@ -4,7 +4,7 @@ import Apperror from "../utility/error.util.js";
 import JWT from "jsonwebtoken";
 
 const register = async (req , res , next) => {
-    try {
+    try { 
         const {name, email , password}  = req.body 
         console.log(req.body) 
         console.log(req.headers)
@@ -35,7 +35,10 @@ const register = async (req , res , next) => {
     }
 }
 const login = async  (req, res, next) => { 
-    try {
+    try {  
+        console.log(req);
+        
+        console.log(req.body)
         const {email , password}  = req.body 
         if(!email || !password )  {
             return next(new Apperror ("Please Fill All credentials " , 400  )  )

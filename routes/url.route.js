@@ -9,7 +9,9 @@ router.route("/url/make-url").post(url.makeShortUrlInDB)
 router.route("/url/link-shortUrl").post(isLoggedIn,url.linkShortUrL)
 router.route("/:hash").get(url.clickShortLink)
 router.route("/url/deleteUrl").post(url.deleteUrl)
-router.route("/url/getAllUrls").get(isLoggedIn, url.getAllUrls)
+router.route("/url/getAllUrls").get(isLoggedIn, url.getAllUrls) 
+router.route("/url/:uid/genrate-qr")
+        .get(url.generateQr)
 export default router
 
 

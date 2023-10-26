@@ -6,5 +6,6 @@ import isLoggedIn from "../middlewares/authentication.middleware.js";
 route.route("/register").post(user.register) 
 route.route("/login").post(user.login)
 route.route("/me").get(isLoggedIn,  user.me)
-route.route("/logout").get(user.logout)
+route.route("/logout").get(user.logout) 
+
 export default route 

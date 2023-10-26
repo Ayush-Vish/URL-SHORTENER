@@ -1,6 +1,7 @@
 import urlModel from "../models/url.model.js"
 import isUrl from "is-url"
-import Apperror from "../utility/error.util.js"
+import Apperror from "../utility/error.util.js" 
+
 const makeShortUrlInDB = async (req , res , next) => {
     let lengthOfUrls= 0
     
@@ -95,9 +96,12 @@ const clickShortLink =async  (req, res, next) => {
 }
 const deleteUrl = async(req ,res, next) => { 
         
-    try{ 
+    try{  
+        console.log(req.body);
+
         const {shortUrl} = req.body 
-        const url= await urlModel.findOne({shortUrl}) 
+        const url= await urlModel.findOne({linkShortUrl:shortUrl})  
+        console.log(url)
         url.status= "INACTIVE"
         url.userId=null 
         url.clicks = 0
@@ -117,10 +121,8 @@ const deleteUrl = async(req ,res, next) => {
 } 
 const getAllUrls  = async (req, res, next)=> {
      try {  
-        console.log("fknjsdvbkljvgvfsdbjk")
         const userId = req.user.id 
         const urls =await urlModel.find({userId: userId}).sort({createdAt:-1}) ;
-        console.log(urls);
         
 
         if(!urls.length)  {
@@ -133,11 +135,45 @@ const getAllUrls  = async (req, res, next)=> {
      } catch (e) {
         return next(new Apperror (e.message , 400))
      }
+} 
+const generateQr = async ( req, res ,next ) =>  {
+    try { 
+        console.log("s.fbsdjkfbjadbfjoa")
+        const {uid }= req.params;
+        if(!uid) { 
+            return next(new Apperror("Please provide a valid Url " ,400 )) ;
+            
+        } 
+        console.log("s.fbsdjkfbjadbfjoa")
+        const url = await urlModel.findById(uid) ;
+        if(!url)  {
+            return next(new Apperror("Url Does not exists" ,400 )) ;
+        }  
+        console.log("s.fbsdjkfbjadbfjoa")
+        try {
+            const response= await fetch(`https://chart.googleapis.com/chart?cht=qr&chs=500x500&chl=${url.linkShortUrl}`) 
+            console.log(await response.text())
+
+                    
+        } catch (error) { 
+            console.log(error)
+        } 
+        return res.status(200).json ( { 
+            success : true
+        })
+       
+
+    } catch (error) {
+        return next( new Apperror (error.message ,400 )) ;
+
+    }
 }
+
 export default {
     makeShortUrlInDB, 
     linkShortUrL,
     clickShortLink,
     deleteUrl,
-    getAllUrls
+    getAllUrls,
+    generateQr
 }

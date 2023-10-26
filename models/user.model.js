@@ -6,8 +6,7 @@ const User = new mongoose.Schema({
         type:String, 
         require:[true, "Name is Required"],
         trim:true,
-        minLength:[5 , "Name must be greater than 5 characters"],
-        lowercase:true
+        minLength:[2 , "Name must be greater than 5 characters"]
     },
     email:{
         type:String,
@@ -23,7 +22,7 @@ const User = new mongoose.Schema({
         type:String,
         require:[true,"Password is required for further Process"],
         select:[false],
-        minLength:[8, "Password must be greater than 8 characters"]
+        minLength:[4, "Password must be greater than 8 characters"]
         
     },
     role: {
