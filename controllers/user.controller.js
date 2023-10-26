@@ -58,8 +58,7 @@ const login = async  (req, res, next) => {
         const token = user.generateJwtToken()
         user.password  =undefined 
         const cookieOptions = {
-            maxAge:7*24*60*60*100,
-            httpOnly:true,
+            maxAge:7*24*60*60*1000,
             secure:true
         }
         res.cookie("token", token ,cookieOptions)
