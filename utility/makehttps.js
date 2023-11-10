@@ -1,8 +1,12 @@
 function makeHttp ( longUrl  )  {
-     
-    if(makeHttp.)
-
+    console.log("dnsfbs");
+    if(!String(longUrl).includes("https")) { 
+        longUrl = `https://` + longUrl;
+    }
+    return longUrl;
 
 
 
 }
+
+export default  makeHttp;

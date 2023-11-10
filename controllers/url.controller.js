@@ -1,6 +1,7 @@
 import urlModel from "../models/url.model.js";
 import isUrl from "is-url";
 import Apperror from "../utility/error.util.js";
+import makeHttp from "../utility/makehttps.js";
 
 const makeShortUrlInDB = async (req, res, next) => {
   let lengthOfUrls = 0;
@@ -35,14 +36,16 @@ const makeShortUrlInDB = async (req, res, next) => {
   });
 };
 const linkShortUrL = async (req, res, next) => { 
-    
+
 
 
 
 
 
   try {
-    const { longUrl } = req.body;
+    let { longUrl } = req.body;
+    longUrl = makeHttp(longUrl);
+    console.log(longUrl);
     const validUrl = await isUrl(longUrl);
     if (!validUrl) {
       return next(new Apperror("Please provide Valid Url ", 400));
@@ -172,7 +175,8 @@ const generateQr = async (req, res, next) => {
 const makeCustomUrl = async (req, res, next) => {
   try {
     const { hash } = req.params;
-    const {longUrl } = req.body;
+    let {longUrl } = req.body;
+    longUrl = makeHttp(longUrl);
     const validUrl = await isUrl(longUrl);
     if (!validUrl) {
       return next(new Apperror("Please provide Valid Url ", 400));
