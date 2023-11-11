@@ -12,6 +12,7 @@ router.route("/url/deleteUrl").post(url.deleteUrl)
 router.route("/url/getAllUrls").get(isLoggedIn, url.getAllUrls) 
 router.route("/url/:uid/genrate-qr")
         .get(url.generateQr)
+router.route("/url/custom/:hash").post( isLoggedIn ,  url.makeCustomUrl)
 export default router
 
 

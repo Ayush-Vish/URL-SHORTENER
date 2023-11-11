@@ -94,7 +94,7 @@ const me  =async (req, res, next ) =>  {
 }
 const logout = async (req, res, next) => {
     try {
-        res.cookie("token" ,"sfljkn" , {
+        res.cookie("token" ,"token" , {
             expires: new Date(),
             httpOnly : true 
         })

@@ -16,8 +16,10 @@ app.use(express.json())
 connectToDb()
 app.use(morgan("dev"))
 
+// app.use(cors())
+
 app.use(cors({
-    origin:"https://linkshort-bay.vercel.app",
+    origin:process.env.FRONTEND_URL,
     credentials:true
 }))
  
