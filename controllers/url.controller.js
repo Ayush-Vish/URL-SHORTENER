@@ -45,7 +45,7 @@ const linkShortUrL = async (req, res, next) => {
   try {
     let { longUrl } = req.body;
     longUrl = makeHttp(longUrl);
-    console.log(longUrl);
+
     const validUrl = await isUrl(longUrl);
     if (!validUrl) {
       return next(new Apperror("Please provide Valid Url ", 400));
@@ -74,7 +74,7 @@ const linkShortUrL = async (req, res, next) => {
   }
 };
 const clickShortLink = async (req, res, next) => {
-  console.log("Click on Short Link me Hu ");
+  
   try {
     const hash = req.params["hash"];
     const longUrl = await urlModel.findOne({ shortUrl: hash });
@@ -101,11 +101,9 @@ const clickShortLink = async (req, res, next) => {
 };
 const deleteUrl = async (req, res, next) => {
   try {
-    console.log(req.body);
 
     const { shortUrl } = req.body;
     const url = await urlModel.findOne({ linkShortUrl: shortUrl });
-    console.log(url);
     url.status = "INACTIVE";
     url.userId = null;
     url.clicks = 0;
@@ -141,12 +139,11 @@ const getAllUrls = async (req, res, next) => {
 };
 const generateQr = async (req, res, next) => {
   try {
-    console.log("s.fbsdjkfbjadbfjoa");
+
     const { uid } = req.params;
     if (!uid) {
       return next(new Apperror("Please provide a valid Url ", 400));
     }
-    console.log("s.fbsdjkfbjadbfjoa");
     const url = await urlModel.findById(uid);
     if (!url) {
       return next(new Apperror("Url Does not exists", 400));
@@ -162,7 +159,6 @@ const generateQr = async (req, res, next) => {
         image: `<img  src=${await response.text()}  > </img>`,
       });
     } catch (error) {
-      console.log(error);
     }
     return res.status(200).json({
       success: true,

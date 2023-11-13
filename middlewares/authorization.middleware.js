@@ -11,8 +11,6 @@ const jwtAuth = async (req ,res, next) => {
         })
     }
     try {
-        
-        console.log(token)
         const payload =  await JWT.verify(token , process.env.JWT_SECRET)
         req.user = {id:payload.id ,email : payload.email,  role : payload.role  }
         next() 

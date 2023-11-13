@@ -1,5 +1,4 @@
 function makeHttp ( longUrl  )  {
-    console.log("dnsfbs");
     if(!String(longUrl).includes("https")) { 
         longUrl = `https://` + longUrl;
     }

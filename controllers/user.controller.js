@@ -6,9 +6,6 @@ import JWT from "jsonwebtoken";
 const register = async (req , res , next) => {
     try { 
         const {name, email , password}  = req.body 
-        console.log(req.body) 
-        console.log(req.headers)
-        console.log("Yaha Par")
         if(!name || !  email || ! password  ) {
             return next(new Apperror ("All fields are required", 400));
         }   
@@ -36,9 +33,7 @@ const register = async (req , res , next) => {
 }
 const login = async  (req, res, next) => { 
     try {  
-        console.log(req);
         
-        console.log(req.body)
         const {email , password}  = req.body 
         if(!email || !password )  {
             return next(new Apperror ("Please Fill All credentials " , 400  )  )
@@ -49,7 +44,6 @@ const login = async  (req, res, next) => {
              return next(new Apperror("User Does not registered" , 400 )) 
 
         }
-        console.log("Password is -> ", password  )
         if(!user.comparePassword(password))  {
             return next (new Apperror ("Password is incorrect" ,400 )) 
 
@@ -64,7 +58,6 @@ const login = async  (req, res, next) => {
             sameSite: 'None'
         }
         res.cookie("token", token ,cookieOptions) 
-        console.log(res);
 
         return res.status(200).json({ 
             success:true, 

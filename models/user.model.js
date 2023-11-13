@@ -45,7 +45,6 @@ User.pre( "save" ,  async function (next) {
 User.methods =   {
     async  comparePassword(newPassword)  { 
         newPassword = await bcrypt.hash(newPassword ,10) 
-        console.log("THis is new Password" , newPassword )
         return this.password === newPassword 
     },
     generateJwtToken() {
